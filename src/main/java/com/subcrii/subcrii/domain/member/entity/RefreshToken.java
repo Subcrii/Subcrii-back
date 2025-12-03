@@ -25,7 +25,7 @@ public class RefreshToken {
     private String token;
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime expired_at;
+    private LocalDateTime expiredAt;
 }

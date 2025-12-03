@@ -29,6 +29,6 @@ public class Favorites {
     private Creator creator;
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
 }

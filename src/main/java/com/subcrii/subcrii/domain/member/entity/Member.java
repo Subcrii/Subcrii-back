@@ -40,10 +40,10 @@ public class Member {
     private List<RefreshToken> refreshTokens = new ArrayList<>();
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     private Boolean deleted = false;
 
