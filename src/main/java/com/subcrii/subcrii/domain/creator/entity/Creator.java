@@ -6,15 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
+@Getter
 public class Creator {
 
     @Id
@@ -24,8 +25,9 @@ public class Creator {
     @NotNull
     private String nickName;
 
-    @Lob
+
     @NotNull
+    @jakarta.persistence.Column(columnDefinition = "TEXT")
     private String information;
 
     @NotNull
