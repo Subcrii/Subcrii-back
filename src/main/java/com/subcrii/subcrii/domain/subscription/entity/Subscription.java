@@ -1,5 +1,7 @@
 package com.subcrii.subcrii.domain.subscription.entity;
 
+import com.subcrii.subcrii.domain.creator.entity.Creator;
+import com.subcrii.subcrii.domain.member.entity.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
