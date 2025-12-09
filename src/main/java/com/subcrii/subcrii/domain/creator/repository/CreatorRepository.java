@@ -15,9 +15,9 @@ public interface CreatorRepository extends JpaRepository<Creator, UUID> {
 
     @Query("""
         select c
-        from Favorites f
-        right join f.creator c
-        group by c
+        from Creator c
+        left join Favorites f on c.id = f.creatorId
+        group by c.id
         order by count(f) desc
         """)
     List<Creator> findCreatorsOrderByFavoritesAsc(Pageable pageable);
