@@ -1,14 +1,17 @@
 package com.subcrii.subcrii.domain.favorite.controller;
 
-import com.subcrii.subcrii.domain.favorite.service.FavoritesSerivce;
+import com.subcrii.subcrii.domain.favorite.dto.FavoriteCreatorsResponse;
+import com.subcrii.subcrii.domain.favorite.service.FavoritesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/favorites")
 public class FavoritesController {
-    private final FavoritesSerivce favoritesSerivce;
+    private final FavoritesService favoritesService;
 
     @PostMapping
     @Operation(
@@ -52,7 +55,7 @@ public class FavoritesController {
                 )
             })
     public ResponseEntity<Void> addFavorites(UUID memberId, UUID creatorId) {
-        favoritesSerivce.addFavorites(memberId, creatorId);
+        favoritesService.addFavorites(memberId, creatorId);
         return ResponseEntity.ok().build();
     }
 
@@ -89,7 +92,38 @@ public class FavoritesController {
                 )
             })
     public ResponseEntity<Void> deleteFavorites(UUID memberId, UUID creatorId) {
-        favoritesSerivce.removeFavorites(memberId, creatorId);
+        favoritesService.removeFavorites(memberId, creatorId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/creators")
+    @Operation(
+            summary = "즐겨찾기 목록",
+            description = "멤버아이디로 즐겨찾기한 크리에이터 목록을 반환합니다.",
+            parameters = {
+                    @Parameter(
+                            name = "memberId",
+                            description = "현재 로그인 회원 ID",
+                            required = true,
+                            schema = @Schema(type = "UUID", format = "UUID", example = "11111111-1111-1111-1111-111111111111")
+                    )},
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "목록 반환 성공"
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "잘못된 요청"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "회원 또는 크리에이터를 찾을 수 없음"
+                    )
+            })
+    public ResponseEntity<Page<FavoriteCreatorsResponse>>  findFavoriteCreatorsByMemberId(UUID memberId, int page, int size) {
+        Page<FavoriteCreatorsResponse> favoriteCreatorsResponse = favoritesService.findFavoriteCreatorsByMemberId(
+                memberId, page, size);
+        return  ResponseEntity.ok(favoriteCreatorsResponse);
     }
 }
