@@ -1,5 +1,6 @@
 package com.subcrii.subcrii.domain.content.controller;
 
+import com.subcrii.subcrii.domain.content.dto.ContentDetailResponse;
 import com.subcrii.subcrii.domain.content.dto.ContentListResponse;
 import com.subcrii.subcrii.domain.content.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,5 +29,15 @@ public class ContentController {
     ) {
         Page<ContentListResponse> contentListResponses = contentService.getContentList(creatorId, pageable);
         return ResponseEntity.ok(contentListResponses);
+    }
+
+    @GetMapping("/{creatorId}/contents/{contentId}")
+    @Operation(summary = "컨텐츠 상세 조회", description = "구독한 크리에이터의 컨텐츠 내용을 조회할 수 있습니다.")
+    public ResponseEntity<ContentDetailResponse> getContentDetail(
+            @PathVariable UUID creatorId,
+            @PathVariable UUID contentId
+    ) {
+        ContentDetailResponse contentDetailResponse = contentService.getContentDetail(creatorId, contentId);
+        return ResponseEntity.ok(contentDetailResponse);
     }
 }
