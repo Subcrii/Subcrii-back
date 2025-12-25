@@ -13,11 +13,20 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
+        final String securitySchemeName = "bearerAuth";
 
         return new OpenAPI()
                 .info(new Info()
                         .title("Subcrii API 문서")
                         .version("v1.0.0")
-                        .description("회원, 구독, 결제 등 API 명세서입니다."));
+                        .description("회원, 구독, 결제 등 API 명세서입니다."))
+                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(securitySchemeName,
+                                new SecurityScheme()
+                                        .name(securitySchemeName)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")));
     }
 }
