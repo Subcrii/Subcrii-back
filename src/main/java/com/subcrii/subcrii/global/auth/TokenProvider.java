@@ -92,4 +92,7 @@ public class TokenProvider {
         return false;
     }
 
+    public long getAccessTokenExpiresInSeconds() {
+        return ACCESS_TOKEN_EXPIRATION_MS;
+    }
 }
