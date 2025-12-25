@@ -7,6 +7,10 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  security:
+    user:
+      name: admin
+      password: "1234"
 
   jpa:
     hibernate:
@@ -31,3 +35,9 @@ springdoc:
     tryItOutEnabled: true
     displayRequestDuration: true
     docExpansion: none
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-expiration: ${JWT_ACCESS}
+  refresh-expiration: ${JWT_REFRESH}
+
