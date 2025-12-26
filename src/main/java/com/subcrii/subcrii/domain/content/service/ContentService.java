@@ -1,5 +1,6 @@
 package com.subcrii.subcrii.domain.content.service;
 
+import com.subcrii.subcrii.domain.content.dto.ContentDetailResponse;
 import com.subcrii.subcrii.domain.content.dto.ContentListResponse;
 import com.subcrii.subcrii.domain.content.repository.ContentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,12 @@ public class ContentService {
     @Transactional(readOnly = true)
     public Page<ContentListResponse> getContentList(UUID creatorId, Pageable pageable) {
         return contentRepository.findContentListByCreatorId(creatorId, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public ContentDetailResponse getContentDetail(UUID creatorId, UUID contentId) {
+        //todo : 구독자만 조회 가능하도록
+        return contentRepository.findDetailByCreatorIdAndContentId(creatorId, contentId)
+                .orElseThrow(()-> new IllegalArgumentException("Content not found"));
     }
 }
