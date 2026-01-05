@@ -2,9 +2,9 @@ package com.subcrii.subcrii.domain.creator.repository;
 
 import com.subcrii.subcrii.domain.creator.entity.Creator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -47,4 +47,13 @@ public interface CreatorRepository extends JpaRepository<Creator, UUID> {
         order by c.createdAt desc
         """)
     List<Creator> findCreatorOrderByCreatedAt(Pageable pageable);
+
+    @Query("""
+        select c
+        from Creator c
+        left join fetch c.category cat
+        where c.id = :id
+          and c.deleted = false
+    """)
+    Optional<Creator> findDetailById(@Param("id") UUID id);
 }
