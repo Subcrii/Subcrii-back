@@ -42,9 +42,6 @@ public class MemberService {
         Member member = memberRepository.findByEmail(req.getEmail())
                 .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
 
-        if (Boolean.TRUE.equals(member.getDeleted())) {
-            throw new BadCredentialsException("Invalid credentials");
-        }
 
         if (!passwordEncoder.matches(req.getPassword(), member.getPassword())) {
             throw new BadCredentialsException("Invalid credentials");
