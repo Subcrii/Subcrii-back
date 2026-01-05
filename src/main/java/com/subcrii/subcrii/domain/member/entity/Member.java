@@ -70,8 +70,6 @@ public class Member {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false)
-    private Boolean deleted = false;
 
     public static Member create(MemberSignupRequest req, String encodedPassword) {
         return new Member(req, encodedPassword);
@@ -84,7 +82,6 @@ public class Member {
         this.phoneNumber = req.getPhoneNumber();
         this.profileImage = (req.getProfileImage() == null) ? "" : req.getProfileImage();
         this.role = Role.USER;
-        this.deleted = false;
     }
 
     public void changeRole(Role role) {
