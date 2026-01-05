@@ -1,5 +1,6 @@
-package com.subcrii.subcrii.domain.creator.entity;
+package com.subcrii.subcrii.domain.content.entity;
 
+import com.subcrii.subcrii.domain.creator.entity.Creator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -10,9 +11,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+@Getter
 @Entity
 public class Content {
     @Id
